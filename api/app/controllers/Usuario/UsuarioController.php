@@ -59,4 +59,8 @@
                 echo json_encode(['estatus'=>'ok', 'mensaje' => 'Actualizado correctamente']);
             }
         }
+
+        public function validar_login($data){
+            echo json_encode($data);
+        }
     }
