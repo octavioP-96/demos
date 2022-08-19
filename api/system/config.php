@@ -43,7 +43,7 @@ define('USER', 'root');
 define('PASSWORD', '');
 define('DB_NAME', 'blog');
 
-define('PASS_ENCRYPT', 'chuypajaro');
+define('PASS_ENCRYPT', 'chuypajaro96');
 define('DEFAULT_PASS', '12345');
 
 //////////////////////////////////////
