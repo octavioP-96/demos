@@ -2,6 +2,7 @@
     defined('BASEPATH') or exit('No se permite acceso directo');
     require_once ROOT . '/' . FOLDER_PATH . '/app/models/Usuario/UsuarioModel.php';
     require_once LIBS_ROUTE .'FileManager.php';
+    require_once LIBS_ROUTE .'FieldValidate.php';
     /**
     * Home controller
     */
@@ -61,6 +62,12 @@
         }
 
         public function validar_login($data){
-            echo json_encode($data);
+            $formValid = new FieldValidate($data);
+            $formValid->setFieldValidate('userName', function($val){return trim($val) == '';}, 'El nombre de usuario es requerido');
+            $formValid->setFieldValidate('userPass', function($val){return trim($val) == '';}, 'La contrseña es requerida');
+            $valid = $formValid->checkFormValid();
+            if(!$valid[0]){
+                echo json_encode(['estatus'=>'error', 'info'=>$valid[1]]);
+            }
         }
     }

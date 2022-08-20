@@ -7,13 +7,22 @@ export function formSubmit(event, formId){
         url:'api/Usuario/validar_login/',
         data: formData,
         type: 'POST',
+        dataType: 'json',
 		contentType: false,
 		processData:false,
         beforeSend: function(){
-            console.log('hi');
         },
         success:function(data){
-            console.log(data);
+            if(data.estatus == 'ok'){
+
+            }else{
+                // alert(data.info);
+                bootbox.alert({
+                    title:'Atención',
+                    message : data.info,
+                    backdrop: true
+                });
+            }
         },
         error: function(e){
             console.log(e);
