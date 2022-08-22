@@ -58,4 +58,8 @@
         $this->construir("UPDATE posts SET imagen = :imagen WHERE id_post = :id_post;", ['imagen'=>$imagen, 'id_post'=>$id]);
     }
 
+    public function validar_login($data){
+        return $this->consultar("SELECT * FROM usuarios WHERE username = :userName AND :userPass = AES_DECRYPT(contrasenia, '".PASS_ENCRYPT."')", $data);
+    }
+
 }

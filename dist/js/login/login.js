@@ -1,4 +1,4 @@
-import {storageAvailable, userInfo} from '../helpers/helpers.js';
+import {storageAvailable, userInfo, verify_sesion} from '../helpers/helpers.js';
 import {formSubmit} from '../helpers/form.js';
 
 $(document).ready(function(){
@@ -6,8 +6,9 @@ $(document).ready(function(){
         alert('El navegador no es compatible con el sitio');
         return;
     }
-
-    if(userInfo()){
+    var user_loged = userInfo();
+    if(user_loged){
+        console.log(verify_sesion());
         window.location.replace('/home');
     }
 });

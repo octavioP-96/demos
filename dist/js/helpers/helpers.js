@@ -1,3 +1,5 @@
+const localUserI = 'userInfo';
+
 export function storageAvailable(type) {
     try {
         var storage = window[type],
@@ -23,5 +25,22 @@ export function storageAvailable(type) {
 }
 
 export function userInfo(){
-    return localStorage.getItem('userInfo');
+    return localStorage.getItem(localUserI);
+}
+
+export function setUserInfo(user){
+    localStorage.setItem(localUserI, user);
+}
+
+export async function verify_sesion(){
+    var user_loged = userInfo();
+    const formData = new FormData();
+    for ( var key in user_loged ) {
+        formData.append(key, user_loged[key]);
+    }
+    var req = await fetch('api/Usuario/validar_sesion/',{
+        method: 'POST',
+        body: formData,
+    });
+    return await req.json();
 }

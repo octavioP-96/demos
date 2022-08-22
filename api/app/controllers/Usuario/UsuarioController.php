@@ -68,6 +68,8 @@
             $valid = $formValid->checkFormValid();
             if(!$valid[0]){
                 echo json_encode(['estatus'=>'error', 'info'=>$valid[1]]);
+                return;
             }
+            $usuario = $this->model->validar_login($data['userName'], $data['userPass']);
         }
     }

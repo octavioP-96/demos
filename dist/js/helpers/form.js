@@ -14,7 +14,11 @@ export function formSubmit(event, formId){
         },
         success:function(data){
             if(data.estatus == 'ok'){
-
+                bootbox.alert({
+                    message : 'Bienvenido',
+                    backdrop: true
+                });
+                setUserInfo(data.data);
             }else{
                 // alert(data.info);
                 bootbox.alert({
