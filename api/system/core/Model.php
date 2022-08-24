@@ -61,4 +61,28 @@ class Model
     $log .= date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL;
     file_put_contents(__CLASS__ . '_LOG.txt', $log);
   }
+
+  public function enc($text){
+    $simple_string = $text;
+    $ciphering = "AES-128-CTR";
+    $iv_length = openssl_cipher_iv_length($ciphering);
+    $options = 0;
+    $encryption_iv = '1234567891011121';
+    $encryption_key = PASS_ENCRYPT;
+    $encryption = openssl_encrypt($simple_string, $ciphering, $encryption_key, $options, $encryption_iv);
+    return $encryption;
+  }
+
+    public function dec($token){
+      $ciphering = "AES-128-CTR";
+      // Non-NULL Initialization Vector for decryption
+      $decryption_iv = '1234567891011121';
+      // Store the decryption key
+      $decryption_key = PASS_ENCRYPT;
+      // Use openssl_decrypt() function to decrypt the data
+      $options = 0;
+      $decryption=openssl_decrypt($token, $ciphering, $decryption_key, $options, $decryption_iv);
+      
+      return $decryption;
+    }
 }

@@ -29,7 +29,10 @@ export function userInfo(){
 }
 
 export function setUserInfo(user){
-    localStorage.setItem(localUserI, user);
+    localStorage.setItem(localUserI, JSON.stringify(user));
+}
+export function removeUserInfo(){
+    localStorage.removeItem(localUserI);
 }
 
 export async function verify_sesion(){

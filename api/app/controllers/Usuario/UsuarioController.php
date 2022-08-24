@@ -3,11 +3,14 @@
     require_once ROOT . '/' . FOLDER_PATH . '/app/models/Usuario/UsuarioModel.php';
     require_once LIBS_ROUTE .'FileManager.php';
     require_once LIBS_ROUTE .'FieldValidate.php';
+    require_once LIBS_ROUTE .'Session.php';
     /**
     * Home controller
     */
     class UsuarioController extends Controller{
         var $fmg;
+        private $model;
+        private $session;
 
         public function exec()
           {
@@ -17,6 +20,7 @@
         public function __construct(){
             $this->model = new UsuarioModel();
             $this->fmg = new FileManager();
+            $this->session = new Session();
         }
 
         /**
@@ -64,12 +68,22 @@
         public function validar_login($data){
             $formValid = new FieldValidate($data);
             $formValid->setFieldValidate('userName', function($val){return trim($val) == '';}, 'El nombre de usuario es requerido');
-            $formValid->setFieldValidate('userPass', function($val){return trim($val) == '';}, 'La contrseña es requerida');
+            $formValid->setFieldValidate('userPass', function($val){return trim($val) == '';}, 'La contraseña es requerida');
             $valid = $formValid->checkFormValid();
             if(!$valid[0]){
                 echo json_encode(['estatus'=>'error', 'info'=>$valid[1]]);
                 return;
             }
-            $usuario = $this->model->validar_login($data['userName'], $data['userPass']);
+            $usuario = $this->model->validar_login(['userName'=>$data['userName'], 'userPass'=>$data['userPass']]);
+            if(!$usuario){
+                echo json_encode(['estatus'=>'error', 'info'=>'Usuario o contraseña incorrectas']);
+                return;
+            }
+            $usuario['token'] = $this->model->enc(json_encode(['usuario'=>$usuario['id_usuario'], 'fecha'=>date('Y-m-d')]));
+            unset($usuario['id_usuario']);
+            unset($usuario['contrasenia']);
+            $this->session->init();
+            $this->session->add('usuario', $usuario);
+            echo json_encode(['estatus'=>'ok', 'data'=>$usuario]);
         }
     }

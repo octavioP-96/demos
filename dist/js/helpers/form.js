@@ -1,10 +1,10 @@
-export function formSubmit(event, formId){
+export function formSubmit(event, formId, url, callb){
     event.preventDefault();
     var formData = new FormData($(`#${formId}`)[0]);
     $(`#${formId} button[type='submit']`).attr('disabled', true);
     $(`#${formId} button[type='submit']`).parent().append(`<small id="button-form-span">Espere...</small>`);
     $.ajax({
-        url:'api/Usuario/validar_login/',
+        url:url,
         data: formData,
         type: 'POST',
         dataType: 'json',
@@ -13,20 +13,7 @@ export function formSubmit(event, formId){
         beforeSend: function(){
         },
         success:function(data){
-            if(data.estatus == 'ok'){
-                bootbox.alert({
-                    message : 'Bienvenido',
-                    backdrop: true
-                });
-                setUserInfo(data.data);
-            }else{
-                // alert(data.info);
-                bootbox.alert({
-                    title:'Atención',
-                    message : data.info,
-                    backdrop: true
-                });
-            }
+            callb(data);
         },
         error: function(e){
             console.log(e);

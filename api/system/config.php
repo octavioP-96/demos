@@ -41,7 +41,7 @@ define('DEFAULT_CONTROLLER', 'Home');
 define('HOST', 'localhost');
 define('USER', 'root');
 define('PASSWORD', '');
-define('DB_NAME', 'blog');
+define('DB_NAME', 'empresa');
 
 define('PASS_ENCRYPT', 'chuypajaro96');
 define('DEFAULT_PASS', '12345');
