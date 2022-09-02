@@ -86,4 +86,17 @@
             $this->session->add('usuario', $usuario);
             echo json_encode(['estatus'=>'ok', 'data'=>$usuario]);
         }
+
+        public function validar_sesion($data){
+            if(!isset($data['token'])){
+                echo json_encode(['estatus'=>'error', 'info'=>'Token inválido']);
+                die();
+            }
+            $info_token = json_decode($this->model->dec($data['token']), true);
+            if(!$info_token){
+                echo json_encode(['estatus'=>'error', 'info'=>'Token inválido']);
+                die();
+            }
+            echo json_encode($info_token);
+        }
     }

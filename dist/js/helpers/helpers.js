@@ -25,7 +25,7 @@ export function storageAvailable(type) {
 }
 
 export function userInfo(){
-    return localStorage.getItem(localUserI);
+    return JSON.parse(localStorage.getItem(localUserI));
 }
 
 export function setUserInfo(user){

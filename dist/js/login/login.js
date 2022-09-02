@@ -10,7 +10,7 @@ $(document).ready(function(){
     if(user_loged){
         // verificar que el token sea valido
         console.log(verify_sesion());
-        window.location.replace('./home');
+        // window.location.replace('./home');
     }
 });
 

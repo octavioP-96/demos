@@ -26,8 +26,6 @@
     }
 
     public function registrar_usuario($data){
-        // var_dump($data);
-        // die();
         if($this->consutar_by_correo($data['correo'])){
             
         }
@@ -41,17 +39,7 @@
 
     public function consultar_by_id($data){
         $id = $data[0];
-        return $this->db->query("SELECT * FROM posts WHERE id_post = ".$id)->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function actualizar_post($data){
-        $img_query = "";
-        if(isset($data['imagen']) && $data['imagen'] !== null){
-            $img_query = ", imagen = :imagen";
-        }else{
-            unset($data['imagen']);
-        }
-        return $this->construir("UPDATE posts SET titulo = :titulo, contenido = :contenido {$img_query}, fecha_inicio = :fecha_inicio, fecha_fin = :fecha_fin, estatus = :estatus WHERE id_post = :id_post;", $data);
+        return $this->db->query("SELECT * FROM usuarios WHERE id_usuario = ".$id)->fetch(PDO::FETCH_ASSOC);
     }
 
     public function actualizar_imagen($imagen, $id){
