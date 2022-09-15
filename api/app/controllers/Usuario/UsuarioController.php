@@ -93,10 +93,13 @@
                 die();
             }
             $info_token = json_decode($this->model->dec($data['token']), true);
-            if(!$info_token){
+            if(!$info_token || !isset($info_tokken['usuario'])){
                 echo json_encode(['estatus'=>'error', 'info'=>'Token inválido']);
                 die();
             }
+            $usuario = $this->model->consultar_by_id([$info_token['usuario']]);
+            unset($usuario['id_usuario']);
+            unset($usuario['contrasenia']);
             echo json_encode($info_token);
         }
     }
