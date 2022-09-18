@@ -41,7 +41,7 @@
         // var_dump($data);
         // die();
         $img_query = "";
-        $this->construir("INSERT INTO posts (titulo, contenido, imagen, fecha_registro, fecha_inicio, fecha_fin, estatus, autor) VALUES (:titulo, :contenido, :imagen, NOW(), :fecha_inicio, :fecha_fin, :estatus, 1);", $data);
+        $this->construir("INSERT INTO posts (titulo, contenido, imagen, fecha_registro, fecha_inicio, fecha_fin, estatus, autor) VALUES (:titulo, :contenido, :imagen, NOW(), :fecha_inicio, :fecha_fin, 1, :autor);", $data);
         return $this->lastId();
     }
 

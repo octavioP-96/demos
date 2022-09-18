@@ -1,8 +1,8 @@
-export function formSubmit(event, formId, url, callb){
+export function formSubmit(event, data, url, callb){
     event.preventDefault();
-    var formData = new FormData($(`#${formId}`)[0]);
-    $(`#${formId} button[type='submit']`).attr('disabled', true);
-    $(`#${formId} button[type='submit']`).parent().append(`<small id="button-form-span">Espere...</small>`);
+    var formData = new FormData($(`#${event.target.id}`)[0]);
+    $(`#${event.target.id} button[type='submit']`).attr('disabled', true);
+    $(`#${event.target.id} button[type='submit']`).parent().append(`<small id="button-form-span">Espere...</small>`);
     $.ajax({
         url:url,
         data: formData,
@@ -20,7 +20,7 @@ export function formSubmit(event, formId, url, callb){
         }
     });
     setTimeout(() => {
-        $(`#${formId} button[type='submit']`).attr('disabled', false);
+        $(`#${event.target.id} button[type='submit']`).attr('disabled', false);
         $("#button-form-span").remove();
     }, 500);
 }

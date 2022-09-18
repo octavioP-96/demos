@@ -2,11 +2,14 @@
     defined('BASEPATH') or exit('No se permite acceso directo');
     require_once ROOT . '/' . FOLDER_PATH . '/app/models/Post/PostModel.php';
     require_once LIBS_ROUTE .'FileManager.php';
+    require_once LIBS_ROUTE .'Session.php';
+    require_once LIBS_ROUTE .'FieldValidate.php';
     /**
     * Home controller
     */
     class PostController extends Controller{
         var $fmg;
+        private $session;
 
         public function exec()
           {
@@ -16,6 +19,7 @@
         public function __construct(){
             $this->model = new PostModel();
             $this->fmg = new FileManager();
+            $this->session = new Session();
         }
 
         /**
@@ -40,8 +44,19 @@
 
         public function registrar($data){
             unset($data['fecha_registro']);
-            unset($data['autor']);
             unset($data['id_post']);
+            $this->session->init();
+            $formValid = new FieldValidate($data);
+            
+            $formValid->setFieldValidate('titulo', function($val){return trim($val) == '';}, 'El título es requerido');
+            $formValid->setFieldValidate('contenido', function($val){return trim($val) == '';}, 'El contenido es requerido');
+            $formValid->setFieldValidate('fecha_inicio', function($val){return trim($val) == '';}, 'La fecha es requerida');
+            $valid = $formValid->checkFormValid();
+            if(!$valid[0]){
+                echo json_encode(['estatus'=>'error', 'info'=>$valid[1]]);
+                return;
+            }
+            $data['autor'] = json_decode($this->model->dec($this->session->get('usuario')['token']), true)['usuario'];
             if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] != 0 || $_FILES['imagen']['size'] == 0){
                 echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen']);
                 return;
