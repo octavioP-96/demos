@@ -44,5 +44,6 @@ if(!CoreHelper::validateMethodController($controller, $method))
  * Ejecución final del controlador, método y parámetro obtenido por URI
  */
 $controller = new $controller;
-$controller->$method($param);
+$response = $controller->$method($param);
+echo json_encode($response);
 ?>
