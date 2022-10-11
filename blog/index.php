@@ -36,7 +36,7 @@
           <!-- Main Card 1 -->
           <div class="card card-comments">
             <div class="m-2">
-              <button class="btn btn-info btn-block">Agregar nuevo</button>
+              <button class="btn btn-info btn-block" id="btn_add_post">Agregar nuevo</button>
             </div>
             <div class="card-body" id="container_blogs">
               Crea tu primer entrada!
@@ -81,12 +81,16 @@
                     <input type="datetime-local" name="fecha_fin" id="fecha_fin" class="form-control">
                   </div>
 
+                  <div id="area_categorias" class="row my-3">
+                  </div>
+
                   <div class="col-sm-12 form-group">
                     <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                     <button type="button" class="btn btn-light btn-block" id="btn_discard_changes">Descartar cambios</button>
                   </div>
                 </div>
               </form>
+
             </div>
             <!-- /.card-body -->
           </div>

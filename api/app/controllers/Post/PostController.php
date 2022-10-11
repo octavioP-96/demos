@@ -33,13 +33,17 @@
             $categoria = $pamars['categoria'] ?? null;
             $estatus = $pamars['estatus'] ?? 1;
             $lista = $this->model->listar($categoria, $estatus);
-            foreach($lista as $keyList => $valKey)
-                $lista[$keyList]['categorias'] = $this->model->getCategories($valKey['id_post']); 
+            // foreach($lista as $keyList => $valKey)
+            //     $lista[$keyList]['categorias'] = $this->model->listarCategorias(1, $valKey['id_post']); 
             echo json_encode($lista);
         }
 
         public function consultar_by_id( $id ){
-            echo json_encode($this->model->consultar_by_id($id));
+            $response = $this->model->consultar_by_id($id);
+            if($response){
+                $response['categorias'] = $this->model->listarCategorias(1, $id[0]);
+            }
+            echo json_encode($response);
         }
 
         public function registrar($data){
@@ -57,20 +61,39 @@
                 return;
             }
             $data['autor'] = json_decode($this->model->dec($this->session->get('usuario')['token']), true)['usuario'];
-            if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] != 0 || $_FILES['imagen']['size'] == 0){
-                echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen']);
-                return;
-            }
-            $data['imagen'] = '';
-            $insert = $this->model->registrar_post($data);
-            if($insert > 0){
-                $n_image = $this->fmg->uploadFile('posts', md5($insert), $_FILES['imagen']);
-                if($n_image === null){
+
+            // verificar si sera un nuevo registro para hacer la imagen requerida
+            if(!isset($data['for_edit'])){
+                if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] != 0 || $_FILES['imagen']['size'] == 0){
                     echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen']);
                     return;
                 }
-                $this->model->actualizar_imagen($n_image, $insert);
-                echo json_encode(['estatus'=>'ok', 'mensaje' => 'Se ha registrado correctamente', 'data'=>$insert]);
+                $data['imagen'] = '';
+                $insert = $this->model->registrar_post($data);
+            }else{
+                foreach ($data as $key_dat => $val) {
+                    if(substr($key_dat, 0, 9) == 'category_'){
+                        echo($data[$key_dat]);
+                        unset($data[$key_dat]);
+                    }
+                }
+                unset($data['autor']);
+                $data['fecha_inicio'] = str_replace('T', ' ', $data['fecha_inicio']);
+                $data['fecha_fin'] = str_replace('T', ' ', $data['fecha_fin']);
+
+                $insert = $this->model->actualizar_post($data);
+            }
+            if($insert > 0){
+                if(!isset($data['for_edit']) || (isset($data['for_edit']) && $_FILES['imagen']['tmp_name'] != '')){
+                    $n_image = $this->fmg->uploadFile('posts', md5($insert), $_FILES['imagen']);
+                    if($n_image === null){
+                        echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen']);
+                        return;
+                    }
+                    $this->model->actualizar_imagen($n_image, $insert);
+                }
+                $mensaje = isset($data['for_edit']) ? 'Se ha actualizado correctamente' : 'Se ha registrado correctamente';
+                echo json_encode(['estatus'=>'ok', 'mensaje' => $mensaje, 'data'=>$insert]);
                 return;
             }else{
                 echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo crear el registro del post']);
@@ -102,5 +125,12 @@
             }else{
                 echo json_encode(['estatus'=>'ok', 'mensaje' => 'Actualizado correctamente']);
             }
+        }
+
+        public function listar_categorias_post($data){
+            $post = null;
+            if(isset($data[0]))
+                $post = $data[0];
+            echo json_encode($this->model->listarCategorias(1, $post));
         }
     }
