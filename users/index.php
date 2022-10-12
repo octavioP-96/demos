@@ -36,7 +36,7 @@
           <!-- Main Card 1 -->
           <div class="card card-comments">
             <div class="m-2">
-              <button class="btn btn-info btn-block" id="btn_add_post">Agregar nuevo</button>
+              <button class="btn btn-info btn-block" id="btn_add_user">Agregar nuevo</button>
             </div>
             <div class="card-body" id="container_users">
               
@@ -48,12 +48,28 @@
           <!-- Main Card 2 -->
           <div class="card">
             <div class="card-body">
-              <form id="form_new_post">
-                <h4 id="label_post_edit">Registra un usuario</h4>
+              <form id="form_new_user">
+                <h4 id="label_user_edit">Registra un usuario</h4>
                 <div class="row">
                   <div class="col-sm-12 form-group">
-                    <label>Titulo</label>
-                    <input type="text" class="form-control" placeholder="Título" name="titulo" id="titulo">
+                    <label>Nombres</label>
+                    <input type="text" class="form-control" placeholder="Nombre" name="nombre" id="nombre">
+                  </div>
+                  <div class="col-sm-12 form-group">
+                    <label>Apellido Paterno</label>
+                    <input type="text" class="form-control" placeholder="Apellido Paterno" name="paterno" id="paterno">
+                  </div>
+                  <div class="col-sm-12 form-group">
+                    <label>Apellido Materno</label>
+                    <input type="text" class="form-control" placeholder="Apellido Materno" name="materno" id="materno">
+                  </div>
+                  <div class="col-sm-12 form-group">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" class="form-control" placeholder="Nombre de usuario" name="username" id="username">
+                  </div>
+                  <div class="col-sm-12 form-group">
+                    <label>Correo</label>
+                    <input type="text" class="form-control" placeholder="Correo" name="correo" id="correo">
                   </div>
                   
                   <div class="col-sm-12 form-group">
