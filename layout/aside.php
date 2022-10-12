@@ -49,7 +49,15 @@
             <a href="../blog" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
-                Gallery
+                Blog
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../users" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Usuarios
               </p>
             </a>
           </li>

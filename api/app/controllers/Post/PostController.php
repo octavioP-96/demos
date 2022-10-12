@@ -35,7 +35,7 @@
             $lista = $this->model->listar($categoria, $estatus);
             // foreach($lista as $keyList => $valKey)
             //     $lista[$keyList]['categorias'] = $this->model->listarCategorias(1, $valKey['id_post']); 
-            echo json_encode($lista);
+            return $lista;
         }
 
         public function consultar_by_id( $id ){
@@ -43,7 +43,7 @@
             if($response){
                 $response['categorias'] = $this->model->listarCategorias(1, $id[0]);
             }
-            echo json_encode($response);
+            return $response;
         }
 
         public function registrar($data){
@@ -64,15 +64,15 @@
             // verificar si sera un nuevo registro para hacer la imagen requerida
             if(!isset($data['for_edit'])){
                 if(!isset($_FILES['imagen']) || $_FILES['imagen']['error'] != 0 || $_FILES['imagen']['size'] == 0){
-                    echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen']);
-                    return;
+                    return ['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen'];
                 }
                 $data['imagen'] = '';
                 $insert = $this->model->registrar_post($data);
             }else{
+                $categories_upd = [];
                 foreach ($data as $key_dat => $val) {
                     if(substr($key_dat, 0, 9) == 'category_'){
-                        echo($data[$key_dat]);
+                        $categories_upd[] = substr($key_dat, 9);
                         unset($data[$key_dat]);
                     }
                 }
@@ -81,19 +81,23 @@
                 $data['fecha_fin'] = str_replace('T', ' ', $data['fecha_fin']);
 
                 $insert = $this->model->actualizar_post($data);
+                if(sizeof($categories_upd) > 0){
+                    $upd_categorias = $this->model->updateCategories($data['for_edit'], $categories_upd);
+                    if($insert == 0){
+                        $insert = $upd_categorias;
+                    }
+                }
             }
             if($insert > 0){
                 if(!isset($data['for_edit']) || (isset($data['for_edit']) && $_FILES['imagen']['tmp_name'] != '')){
                     $n_image = $this->fmg->uploadFile('posts', md5($insert), $_FILES['imagen']);
                     if($n_image === null){
-                        echo json_encode(['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen']);
-                        return;
+                        return ['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen'];
                     }
                     $this->model->actualizar_imagen($n_image, $insert);
                 }
                 $mensaje = isset($data['for_edit']) ? 'Se ha actualizado correctamente' : 'Se ha registrado correctamente';
-                echo json_encode(['estatus'=>'ok', 'mensaje' => $mensaje, 'data'=>$insert]);
-                return;
+                return ['estatus'=>'ok', 'mensaje' => $mensaje, 'data'=>$insert];
             }else{
                 return ['estatus'=>'error', 'mensaje' => 'No se pudo crear el registro del post'];
             }
@@ -128,13 +132,6 @@
             $post = null;
             if(isset($data[0]))
                 $post = $data[0];
-            echo json_encode($this->model->listarCategorias(1, $post));
-        }
-
-        public function listar_categorias_post($data){
-            $post = null;
-            if(isset($data[0]))
-                $post = $data[0];
-            echo json_encode($this->model->listarCategorias(1, $post));
+            return $this->model->listarCategorias(1, $post);
         }
     }

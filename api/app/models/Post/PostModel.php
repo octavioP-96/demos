@@ -49,7 +49,7 @@
     }
 
     function getCategories($id){
-        return $this->db->query("SELECT psc.*, cts.* FROM `post_categorias` psc JOIN categorias cts ON cts.id_categoria = psc.if_categoria WHERE psc.id_post = ".$id)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->db->query("SELECT psc.*, cts.* FROM `post_categorias` psc JOIN categorias cts ON cts.id_categoria = psc.id_categoria WHERE psc.id_post = ".$id)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function listarCategorias($estatus = 1, $post = null){
@@ -60,6 +60,26 @@
             return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         }
         return $this->db->query("SELECT * FROM `categorias` WHERE estatus = ".$estatus)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function updateCategories($post, $categorias){
+        $current_cat = $this->getCategories($post);
+        $changes = 0;
+        foreach ($current_cat as $k_cat => $category) {
+            if(!in_array($category['id_categoria'], $categorias)){
+                $this->db->query("DELETE FROM post_categorias WHERE id_post = {$post} AND id_categoria = {$category['id_categoria']}");
+                $changes++;
+            }
+        }
+        $ids_cates = array_column($current_cat, 'id_categoria');
+        foreach ($categorias as $catego) {
+            if(!in_array($catego, $ids_cates)){
+                $changes++;
+                $this->db->query("INSERT INTO post_categorias (id_post, id_categoria) VALUES ({$post}, {$catego})");
+            }
+        }
+
+        return $changes;
     }
 
 }
