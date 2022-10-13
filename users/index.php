@@ -71,20 +71,8 @@
                     <label>Correo</label>
                     <input type="text" class="form-control" placeholder="Correo" name="correo" id="correo">
                   </div>
-                  
                   <div class="col-sm-12 form-group">
-                    <label>Contenido</label>
-                    <textarea name="contenido" rows="3" class="form-control" id="contenido"></textarea>
-                  </div>
-
-                  <div class="col-sm-6 form-group">
-                    <label>Fecha Inicio</label>
-                    <input type="datetime-local" name="fecha_inicio" id="fecha_inicio" class="form-control">
-                  </div>
-                  
-                  <div class="col-sm-6 form-group">
-                    <label>Fecha Fin</label>
-                    <input type="datetime-local" name="fecha_fin" id="fecha_fin" class="form-control">
+                    <div id="phone_contents"></div>
                   </div>
 
                   <div id="area_categorias" class="row my-3">

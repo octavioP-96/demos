@@ -32,7 +32,11 @@
         }
 
         public function consultar_by_id( $id ){
-            return $this->model->consultar_by_id($id);
+            $response = $this->model->consultar_by_id($id);
+            if($response){
+                $response['categorias'] = $this->model->listarCategorias(1, $id[0]);
+            }
+            return $response;
         }
 
         public function registrar($data){

@@ -42,6 +42,16 @@
         return $this->db->query("SELECT * FROM usuarios WHERE id_usuario = ".$id)->fetch(PDO::FETCH_ASSOC);
     }
 
+    function listarCategorias($estatus = 1, $usuario = null){
+        if($usuario !== null){
+            $sql = "SELECT ctg.*, pc.id_usuario FROM `categorias` ctg
+                    LEFT JOIN usuario_categorias pc ON pc.id_categoria = ctg.id_categoria AND pc.id_usuario = {$usuario}
+                    WHERE ctg.estatus = {$estatus} ";
+            return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $this->db->query("SELECT * FROM `categorias` WHERE estatus = ".$estatus)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function actualizar_imagen($imagen, $id){
         $this->construir("UPDATE posts SET imagen = :imagen WHERE id_post = :id_post;", ['imagen'=>$imagen, 'id_post'=>$id]);
     }

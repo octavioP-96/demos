@@ -86,9 +86,14 @@ function getUserData( user ){
             $("#area_categorias").html('');
         },
         success: ( data ) => {
-            
-
             $("#area_categorias").html('');
+
+            $("#nombre").val(data.nombre);
+            $("#paterno").val(data.paterno);
+            $("#materno").val(data.materno);
+            $("#username").val(data.username);
+            $("#correo").val(data.correo);
+
             $("#form_new_user").append(`<input type="hidden" id="inp_for_edit" name="for_edit" value="${post}">`)
             for(var c in data.categorias){
                 $("#area_categorias").append(`
