@@ -39,8 +39,51 @@
             return $response;
         }
 
-        public function registrar($data){
-            var_dump($data);
+        public function registrar($data){;
+            $this->session->init();
+            $formValid = new FieldValidate($data);
+            
+            $formValid->setFieldValidate('nombre', function($val){return trim($val) == '';}, 'El nombre es requerido');
+            $formValid->setFieldValidate('paterno', function($val){return trim($val) == '';}, 'El apellido es requerido');
+            $formValid->setFieldValidate('username', function($val){return trim($val) == '';}, 'El user name es requerido');
+            $formValid->setFieldValidate('correo', function($val){return trim($val) == '';}, 'El correo es requerido');
+            $valid = $formValid->checkFormValid();
+            if(!$valid[0]){
+                return ['estatus'=>'error', 'info'=>$valid[1]];
+            }
+
+            if(isset($data['for_edit'])){
+                $categories_upd = [];
+                foreach ($data as $key_dat => $val) {
+                    if(substr($key_dat, 0, 9) == 'category_'){
+                        $categories_upd[] = substr($key_dat, 9);
+                        unset($data[$key_dat]);
+                    }
+                }
+
+                $insert = $this->model->actualizar_usuario($data);
+                if(sizeof($categories_upd) > 0){
+                    $upd_categorias = $this->model->updateCategories($data['for_edit'], $categories_upd);
+                    if($insert == 0){
+                        $insert = $upd_categorias;
+                    }
+                }
+            }else{
+                $insert = $this->model->registrar_usuario($data);
+            }
+            if($insert > 0){
+                if(!isset($data['for_edit']) || (isset($data['for_edit']) && $_FILES['imagen']['tmp_name'] != '')){
+                    $n_image = $this->fmg->uploadFile('posts', md5($insert), $_FILES['imagen']);
+                    if($n_image === null){
+                        return ['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen'];
+                    }
+                    $this->model->actualizar_imagen($n_image, $insert);
+                }
+                $mensaje = isset($data['for_edit']) ? 'Se ha actualizado correctamente' : 'Se ha registrado correctamente';
+                return ['estatus'=>'ok', 'mensaje' => $mensaje, 'data'=>$insert];
+            }else{
+                return ['estatus'=>'error', 'mensaje' => 'No se pudo crear el registro del post'];
+            }
         }
 
         public function actualizar($data){

@@ -26,11 +26,17 @@
     }
 
     public function registrar_usuario($data){
-        if($this->consutar_by_correo($data['correo'])){
-            
-        }
-        $this->construir("INSERT INTO usuarios (nombre, aPaterno, correo, contrasenia) VALUES (:nombre, :aPaterno, :correo, AES_ENCRYPT(PASS_ENCRYPT, '".DEFAULT_PASS."'));", $data);
+        $this->construir("INSERT INTO usuarios (
+        username, nombre, paterno, materno, correo, telefono, contrasenia) VALUES (
+        :username, :nombre, :paterno, :materno, :correo, :telefono, AES_ENCRYPT(PASS_ENCRYPT, '".DEFAULT_PASS."'));", $data);
         return $this->lastId();
+    }
+
+    public function actualizar_usuario($data){
+        $upd = $this->construir("UPDATE usuarios SET 
+        username = :username, nombre = :nombre, paterno = :paterno, materno = :materno, correo = :correo, telefono = :telefono, fecha_actualizacion = NOW()
+        WHERE id_usuario = :for_edit;", $data);
+        return $upd > 0 ? $data['for_edit'] : 0;
     }
 
     public function consutar_by_correo($correo){
@@ -39,7 +45,10 @@
 
     public function consultar_by_id($data){
         $id = $data[0];
-        return $this->db->query("SELECT * FROM usuarios WHERE id_usuario = ".$id)->fetch(PDO::FETCH_ASSOC);
+        $response = $this->db->query("SELECT * FROM usuarios WHERE id_usuario = ".$id)->fetch(PDO::FETCH_ASSOC);
+        if($response)
+            unset($response['contrasenia']);
+        return $response;
     }
 
     function listarCategorias($estatus = 1, $usuario = null){

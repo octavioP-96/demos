@@ -78,7 +78,7 @@ function getUserData( user ){
     $("#inp_for_edit").remove();
     $.ajax({
         type:'GET',
-        url:'../api/Usuario/consultar_by_id/' + post,
+        url:'../api/Usuario/consultar_by_id/' + user,
         dataType:'JSON',
         beforeSend: ( ) => {
             // $("#container_users").html(`<div class="text-center"><i id="spiner_load" class="fas fa-spinner fa-spin"></i></div>`);
@@ -94,13 +94,13 @@ function getUserData( user ){
             $("#username").val(data.username);
             $("#correo").val(data.correo);
 
-            $("#form_new_user").append(`<input type="hidden" id="inp_for_edit" name="for_edit" value="${post}">`)
+            $("#form_new_user").append(`<input type="hidden" id="inp_for_edit" name="for_edit" value="${user}">`)
             for(var c in data.categorias){
                 $("#area_categorias").append(`
                 <div class="col">
                     
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="category_${data.categorias[c].id_categoria}" id="check${c}" ${data.categorias[c].id_post !== null ? 'checked' : ''}>
+                        <input class="form-check-input" type="checkbox" name="category_${data.categorias[c].id_categoria}" id="check${c}" ${data.categorias[c].id_usuario !== null ? 'checked' : ''}>
                         <label class="form-check-label" for="check${c}">
                             <div class="badge" style="background-color:${data.categorias[c].back_color}; color:${data.categorias[c].color}"> ${data.categorias[c].nombre}</div>
                         </label>
