@@ -72,7 +72,8 @@
                     <input type="text" class="form-control" placeholder="Correo" name="correo" id="correo">
                   </div>
                   <div class="col-sm-12 form-group">
-                    <div id="phone_contents"></div>
+                    <label>Teléfono</label>
+                    <input type="tel" class="form-control" placeholder="Teléfono" name="telefono" id="telefono">
                   </div>
 
                   <div id="area_categorias" class="row my-3">

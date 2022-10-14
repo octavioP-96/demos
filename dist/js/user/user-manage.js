@@ -93,6 +93,7 @@ function getUserData( user ){
             $("#materno").val(data.materno);
             $("#username").val(data.username);
             $("#correo").val(data.correo);
+            $("#telefono").val(data.telefono);
 
             $("#form_new_user").append(`<input type="hidden" id="inp_for_edit" name="for_edit" value="${user}">`)
             for(var c in data.categorias){

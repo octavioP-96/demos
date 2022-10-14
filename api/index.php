@@ -43,6 +43,12 @@ if(!CoreHelper::validateMethodController($controller, $method))
 /**
  * Ejecución final del controlador, método y parámetro obtenido por URI
  */
+$log = '';
+if(file_exists(date('m-Y') . '_LOG.txt')){
+  $log = file_get_contents(date('m-Y') . '_LOG.txt');
+}
+$log .= date('Y-m-d H:i:s') . ' - ' . $controller.' -> '. $method. '('.json_encode($param).')' . PHP_EOL;
+file_put_contents(date('m-Y') . '_LOG.txt', $log);
 $controller = new $controller;
 $response = $controller->$method($param);
 echo json_encode($response);

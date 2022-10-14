@@ -53,6 +53,11 @@
             }
 
             if(isset($data['for_edit'])){
+                $repeated_c = $this->model->isRepeated('correo', $data['correo'], $data['for_edit']);
+                $repeated_u = $this->model->isRepeated('username', $data['username'], $data['for_edit']);
+                if($repeated_c || $repeated_u){
+                    return ['estatus'=>'error', ('info'=>$repeated_c ? "El correo" : 'El nombre de usuario').' ya está siendo ocupado por otro usuario'];
+                }
                 $categories_upd = [];
                 foreach ($data as $key_dat => $val) {
                     if(substr($key_dat, 0, 9) == 'category_'){
@@ -69,16 +74,15 @@
                     }
                 }
             }else{
+                $repeated_c = $this->model->isRepeated('correo', $data['correo']);
+                $repeated_u = $this->model->isRepeated('username', $data['username']);
+                if($repeated_c || $repeated_u){
+                    return ['estatus'=>'error', ('info'=>$repeated_c ? "El correo" : 'El nombre de usuario').' ya está siendo ocupado por otro usuario'];
+                }
                 $insert = $this->model->registrar_usuario($data);
             }
             if($insert > 0){
-                if(!isset($data['for_edit']) || (isset($data['for_edit']) && $_FILES['imagen']['tmp_name'] != '')){
-                    $n_image = $this->fmg->uploadFile('posts', md5($insert), $_FILES['imagen']);
-                    if($n_image === null){
-                        return ['estatus'=>'error', 'mensaje' => 'No se pudo subir la imagen'];
-                    }
-                    $this->model->actualizar_imagen($n_image, $insert);
-                }
+                
                 $mensaje = isset($data['for_edit']) ? 'Se ha actualizado correctamente' : 'Se ha registrado correctamente';
                 return ['estatus'=>'ok', 'mensaje' => $mensaje, 'data'=>$insert];
             }else{

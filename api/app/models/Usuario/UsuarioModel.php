@@ -25,6 +25,10 @@
         return $result;
     }
 
+    function getCategories($id){
+        return $this->db->query("SELECT usc.*, cts.* FROM `usuario_categorias` usc JOIN categorias cts ON cts.id_categoria = usc.id_categoria WHERE usc.id_usuario = ".$id)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function registrar_usuario($data){
         $this->construir("INSERT INTO usuarios (
         username, nombre, paterno, materno, correo, telefono, contrasenia) VALUES (
@@ -37,6 +41,35 @@
         username = :username, nombre = :nombre, paterno = :paterno, materno = :materno, correo = :correo, telefono = :telefono, fecha_actualizacion = NOW()
         WHERE id_usuario = :for_edit;", $data);
         return $upd > 0 ? $data['for_edit'] : 0;
+    }
+
+    function updateCategories($usuario, $categorias){
+        $current_cat = $this->getCategories($usuario);
+        $changes = 0;
+        foreach ($current_cat as $k_cat => $category) {
+            if(!in_array($category['id_categoria'], $categorias)){
+                $this->db->query("DELETE FROM usuario_categorias WHERE id_usuario = {$usuario} AND id_categoria = {$category['id_categoria']}");
+                $changes++;
+            }
+        }
+        $ids_cates = array_column($current_cat, 'id_categoria');
+        foreach ($categorias as $catego) {
+            if(!in_array($catego, $ids_cates)){
+                $changes++;
+                $this->db->query("INSERT INTO usuario_categorias (id_usuario, id_categoria) VALUES ({$usuario}, {$catego})");
+            }
+        }
+
+        return $changes;
+    }
+
+    function isRepeated($campo, $compare, $id = null){
+        $validate = ['correo', 'username'];
+        if(!in_array($campo, $validate)){
+            $campo = 'correo';
+        }
+        $compare_id = ($id !== null) ? ' AND id_usuario != '.$id : '';
+        return $this->db->consultar("SELECT {$campo} FROM usuarios WHERE {$campo} = :compare {$compare_id};", ['compare'=>$compare]);
     }
 
     public function consutar_by_correo($correo){
