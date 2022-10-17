@@ -25,6 +25,7 @@ $("#form_new_user").on('submit', function(e){
             });
             $("#form_new_user")[0].reset();
             $("#area_categorias").html('');
+            $("#inp_for_edit").remove();  
         }else{
             bootbox.alert({
                 title:'Atención',

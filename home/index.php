@@ -34,15 +34,9 @@
       <div class="row">
         <div class="col-sm-12 col-md-7">
           <!-- Main Card 1 -->
-          <div class="card">
+          <div class="bg-light border">
             <div class="card-header">
               <h3 class="card-title">Title</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-              </div>
             </div>
             <div class="card-body">
               Start creating your amazing application!
@@ -56,7 +50,7 @@
         </div>
         <div class="d-none d-md-block col-md-5">
           <!-- Main Card 2 -->
-          <div class="card">
+          <div class="bg-light border">
             <div class="card-body">
               Start creating your amazing application!
             </div>
@@ -82,7 +76,6 @@
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
-<script src="../dist/js/home/home.js"></script>
+<script type="module" src="../dist/js/home/home.js"></script>
 </body>
 </html>

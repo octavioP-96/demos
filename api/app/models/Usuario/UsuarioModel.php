@@ -32,7 +32,7 @@
     public function registrar_usuario($data){
         $this->construir("INSERT INTO usuarios (
         username, nombre, paterno, materno, correo, telefono, contrasenia) VALUES (
-        :username, :nombre, :paterno, :materno, :correo, :telefono, AES_ENCRYPT(PASS_ENCRYPT, '".DEFAULT_PASS."'));", $data);
+        :username, :nombre, :paterno, :materno, :correo, :telefono, AES_ENCRYPT('".PASS_ENCRYPT."', '".DEFAULT_PASS."'));", $data);
         return $this->lastId();
     }
 
@@ -69,7 +69,7 @@
             $campo = 'correo';
         }
         $compare_id = ($id !== null) ? ' AND id_usuario != '.$id : '';
-        return $this->db->consultar("SELECT {$campo} FROM usuarios WHERE {$campo} = :compare {$compare_id};", ['compare'=>$compare]);
+        return $this->consultar("SELECT {$campo} FROM usuarios WHERE {$campo} = :compare {$compare_id};", ['compare'=>$compare]);
     }
 
     public function consutar_by_correo($correo){

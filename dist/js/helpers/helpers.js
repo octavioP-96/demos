@@ -35,13 +35,13 @@ export function removeUserInfo(){
     localStorage.removeItem(localUserI);
 }
 
-export async function verify_sesion(){
+export async function verify_sesion(url){
     var user_loged = userInfo();
     const formData = new FormData();
     for ( var key in user_loged ) {
         formData.append(key, user_loged[key]);
     }
-    var req = await fetch('api/Usuario/validar_sesion/',{
+    var req = await fetch(url || 'api/Usuario/validar_sesion/',{
         method: 'POST',
         body: formData,
     });

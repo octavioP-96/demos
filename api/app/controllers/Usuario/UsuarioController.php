@@ -56,7 +56,7 @@
                 $repeated_c = $this->model->isRepeated('correo', $data['correo'], $data['for_edit']);
                 $repeated_u = $this->model->isRepeated('username', $data['username'], $data['for_edit']);
                 if($repeated_c || $repeated_u){
-                    return ['estatus'=>'error', ('info'=>$repeated_c ? "El correo" : 'El nombre de usuario').' ya está siendo ocupado por otro usuario'];
+                    return ['estatus'=>'error', 'info'=>($repeated_c ? "El correo" : 'El nombre de usuario').' ya está siendo ocupado por otro usuario'];
                 }
                 $categories_upd = [];
                 foreach ($data as $key_dat => $val) {
@@ -77,7 +77,7 @@
                 $repeated_c = $this->model->isRepeated('correo', $data['correo']);
                 $repeated_u = $this->model->isRepeated('username', $data['username']);
                 if($repeated_c || $repeated_u){
-                    return ['estatus'=>'error', ('info'=>$repeated_c ? "El correo" : 'El nombre de usuario').' ya está siendo ocupado por otro usuario'];
+                    return ['estatus'=>'error', 'info'=>($repeated_c ? "El correo" : 'El nombre de usuario').' ya está siendo ocupado por otro usuario'];
                 }
                 $insert = $this->model->registrar_usuario($data);
             }
@@ -140,7 +140,7 @@
                 return ['estatus'=>'error', 'info'=>'Token inválido'];
             }
             $info_token = json_decode($this->model->dec($data['token']), true);
-            if(!$info_token || !isset($info_tokken['usuario'])){
+            if(!$info_token || !isset($info_token['usuario'])){
                 return ['estatus'=>'error', 'info'=>'Token inválido'];
             }
             $usuario = $this->model->consultar_by_id([$info_token['usuario']]);
