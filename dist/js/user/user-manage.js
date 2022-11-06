@@ -58,6 +58,11 @@ function cargar_usuarios(){
                         </span>
                         ${resp[p].correo} <br> ${resp[p].telefono}
                     </div>
+                    <label class="form-check-label float-right" for="check2">
+                        <div class="badge bg-secondary">
+                            <small>${resp[p].coutCategos} Categorías</small>
+                        </div>
+                    </label>
                 </div>
                 `
             }

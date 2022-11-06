@@ -19,7 +19,10 @@
         if($categorias === null)
             return $this->db->query("SELECT * FROM posts WHERE estatus = ".$estatus)->fetchAll(PDO::FETCH_ASSOC);
         if(gettype($categorias) == "string" || gettype($categorias) == "integer")
-            return $this->db->query("SELECT * FROM posts WHERE estatus = ".$estatus." AND categorias = " . $categorias);
+            return $this->db->query("SELECT ps.*/*, ctg.back_color, ctg.icono, ctg.color*/ FROM posts ps 
+                JOIN post_categorias pc on pc.id_post = ps.id_post
+                /*JOIN categorias ctg ON ctg.id_categoria = pc.id_categoria*/
+                WHERE ps.estatus = ".$estatus." AND pc.id_categoria = " . $categorias . " GROUP BY ps.id_post")->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function consultar_by_id($data){

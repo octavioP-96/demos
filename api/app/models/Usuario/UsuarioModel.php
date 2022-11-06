@@ -18,7 +18,7 @@
     public function listar ( $estatus = null ){
         $stat = $estatus === null ? 1 : $estatus;
         
-        $result = $this->db->query("SELECT * FROM usuarios WHERE estatus = $stat;")->fetchAll(PDO::FETCH_ASSOC);
+        $result = $this->db->query("SELECT *, (SELECT COUNT(*) FROM usuario_categorias uc WHERE uc.id_usuario = usuarios.id_usuario) as coutCategos FROM usuarios WHERE estatus = $stat;")->fetchAll(PDO::FETCH_ASSOC);
         foreach($result as $k_r => $v_r)
             unset($result[$k_r]['contrasenia']);
         $result = array_values($result);

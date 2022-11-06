@@ -1,3 +1,26 @@
 .c-pointer{
     cursor: pointer;
 }
+
+.badges-main{
+    background-color: #0000b8;
+    color: #fff;
+    height: 20px;
+    width: 20px;
+    padding: unset;
+    line-height: 1.7;
+    box-shadow: black 1px 1px 5px -1px
+}
+
+.custom-span{
+    display: block;
+    border-bottom: solid silver;
+    width: 100%;
+}
+
+.main-post-container{
+    background: rgb(244,246,249);
+    background: linear-gradient(180deg, rgba(244,246,249,1) 0%, rgba(237,237,237,1) 100%);
+    max-height:70vh;
+    overflow:auto;
+}

@@ -45,5 +45,5 @@ export async function verify_sesion(url){
         method: 'POST',
         body: formData,
     });
-    return await req.json();
+    return req.json();
 }
