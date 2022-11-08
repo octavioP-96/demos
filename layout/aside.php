@@ -62,6 +62,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="../tareas" class="nav-link">
+              <i class="nav-icon fas fa-check-square"></i>
+              <p>
+                Tareas
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../kanban.html" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
