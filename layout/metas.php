@@ -1,14 +1,14 @@
 <?php
-    require ('../api/system/libs/Session.php');
-    $session = new Session();
-    $session->init();
-    if(!$session->get('usuario')):
+    // require ('../api/system/libs/Session.php');
+    // $session = new Session();
+    // $session->init();
+    // if(!$session->get('usuario')):
 ?>
-<script type="module"> import {removeUserInfo} from '../dist/js/helpers/helpers.js'; removeUserInfo(); </script>
+<!-- <script type="module"> import {removeUserInfo} from '../dist/js/helpers/helpers.js'; removeUserInfo(); </script> -->
 <?php
-        header('Location: ../');
-        exit();
-    endif;
+    //     header('Location: ../');
+    //     exit();
+    // endif;
 ?>
 <head>
   <meta charset="utf-8">

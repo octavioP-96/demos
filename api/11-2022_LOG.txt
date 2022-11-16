@@ -236,3 +236,4 @@
 2022-11-08 06:16:14 - UsuarioController -> listar(["?page=1"])
 2022-11-08 06:17:01 - UsuarioController -> listar(["?page=1"])
 2022-11-08 06:17:09 - UsuarioController -> consultar_by_id(["1"])
+2022-11-15 06:06:18 - HomeController -> init({"username":"chuypajaro","nombre":"Chuy","paterno":"Pajaro","materno":"Cruz","correo":"pajaro_chuy@mail.com","telefono":"123445668","id_categoria":"null","id_rol":"null","fecha_creado":"2022-08-18 23:02:54","fecha_actualizacion":"2022-11-06 09:00:36","estatus":"1","token":"D5phitktKO3Kck+QWhJlHAqwC3YCk+83p3g0aAvkZiFZIlDt"})

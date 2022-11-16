@@ -16,13 +16,11 @@
 
     <!-- Main content -->
     <section class="content mx-2">
-      <div class="row main-post-container" >
+      <div class="row pt-4" >
         <!-- Posts container -->
         <div class="col-sm-12 col-md-7">
-          <div class="card-body">
-            <div id="container_blogs">
-              <div class="text-center"><i id="spiner_load" class="fas fa-spinner fa-spin"></i></div>
-            </div>
+          <div class="card-body bg-light border">
+            <h3>Listado de vehículos</h3>
           </div>
         </div>
         <!-- End Posts container -->
@@ -54,6 +52,6 @@
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script type="module" src="../dist/js/home/home.js"></script>
+<!-- <script type="module" src="../dist/js/home/home.js"></script> -->
 </body>
 </html>
