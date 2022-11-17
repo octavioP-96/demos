@@ -32,7 +32,7 @@
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link d-none" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
@@ -90,7 +90,7 @@
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
+        <a class="nav-link d-none" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
         </a>
@@ -318,15 +318,15 @@
               
           <div class="row">
             <div class="col-6">
-                <img src="../dist/img/default-150x150.png">
+                <img class="img-fluid" src="../dist/img/default-150x150.png">
             </div>
-            <div class="col-6">
+            <div class="col-6 " style="overflow:auto">
                 <table>
-                    <tr> <td>Modelo:</td> <td>${monta_gral.modelo}</td> </tr>
-                    <tr> <td>Capacidad:</td> <td>${monta_gral.capacidad}</td> </tr>
-                    <tr> <td>Serie:</td> <td>${monta_gral.modelo.toUpperCase()+Math.floor(Math.random() * (50000 - 60000) + 60000)}</td> </tr>
-                    <tr> <td>Combustión:</td> <td>${monta_gral.combustion}</td> </tr>
-                    <tr> <td>Incidencias activas:</td> <td>${monta_gral.incidentes}</td> </tr>
+                    <tr> <td><b>Modelo:</b></td> <td>${monta_gral.modelo}</td> </tr>
+                    <tr> <td><b>Capacidad:</b></td> <td>${monta_gral.capacidad}</td> </tr>
+                    <tr> <td><b>Serie:</b></td> <td>${monta_gral.modelo.toUpperCase()+Math.floor(Math.random() * (50000 - 60000) + 60000)}</td> </tr>
+                    <tr> <td><b>Combustión:</b></td> <td>${monta_gral.combustion}</td> </tr>
+                    <tr> <td><b>Incidencias activas:</b></td> <td>${monta_gral.incidentes}</td> </tr>
                 </table>
             </div>
           </div>
