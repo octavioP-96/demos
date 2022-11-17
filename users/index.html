@@ -340,6 +340,7 @@
       $("#preview").html(
         `
         <div class="card card-body">
+          <h3>Información</h3>
           <div class="row">
             <div class="col-6">
               <p class="mb-1"><b>Nombre:</b> ${elm.nombre} ${elm.A_materno} ${elm.A_paterno}</p>
@@ -361,6 +362,8 @@
       )
     });
     $("#preview").fadeIn('fast');
+
+    window.scrollTo(0, document.body.scrollHeight);
   }
 </script>
 </body>

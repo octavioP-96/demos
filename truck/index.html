@@ -338,6 +338,7 @@
       $("#preview").html(
         `
         <div class="card card-body">
+          <h3>Información</h3>
           <div class="row">
             <div class="col-6">
               <p class="mb-1"><b>Modelo:</b> ${elm.modelo}</p>
@@ -358,6 +359,8 @@
         </div>
         `
       )
+
+      window.scrollTo(0, document.body.scrollHeight);
     });
     $("#preview").fadeIn('fast');
   }
