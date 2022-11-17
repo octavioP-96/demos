@@ -256,18 +256,11 @@
         <!-- Posts container -->
         <div class="col-sm-12">
           <div class="card-body bg-light border">
-            <h3>Vehículos.</h3>
+            <h3>Información.</h3>
 
             <div class="row"> <!-- maincontent -->
-              <div class="col-sm-12 col-md-6">
-                <table id="mainTable" class="table">
-                  <thead>
-                    <th>Vehículos</th>
-                  </thead>
-                  <tbody id="vehiculosTable">
-
-                  </tbody>
-                </table>
+              <div class="col-sm-12 col-md-6" id="preview">
+                
               </div>
 
               <div class="col-sm-12 col-md-6">
@@ -309,58 +302,42 @@
 <script>
   let datos = [];
   $(document).ready(()=>{
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const monta = urlParams.get('elemento');
+    let monta_gral = {};
     $.ajax({
       url:'../api/cars.json',
       type:'GET',
       dataType:'json',
       success: ( data )=>{
-        datos = data;
-        var content = data.map(elm => `
-        <tr>
-          <td>
-            <div style="cursor:pointer;" onclick="showTruck(${elm.id})">
-              <p class="mb-1"><b>Modelo:</b> ${elm.modelo}</p>
-              <p class="mb-1"><b>Capacidad:</b> ${elm.capacidad}</p>
+        monta_gral = data.find(elm => elm.id == monta);
+        $("#preview").html(
+        `
+        <div class="card card-body">
+              
+          <div class="row">
+            <div class="col-6">
+                <img src="../dist/img/default-150x150.png">
             </div>
-          </td>
-        </tr>
-        `)
-        $("#vehiculosTable").html(content.join(''));
-        $("#mainTable").DataTable();
+            <div class="col-6">
+                <table>
+                    <tr> <td>Modelo:</td> <td>${monta_gral.modelo}</td> </tr>
+                    <tr> <td>Capacidad:</td> <td>${monta_gral.capacidad}</td> </tr>
+                    <tr> <td>Serie:</td> <td>${monta_gral.modelo.toUpperCase()+Math.floor(Math.random() * (50000 - 60000) + 60000)}</td> </tr>
+                    <tr> <td>Combustión:</td> <td>${monta_gral.combustion}</td> </tr>
+                    <tr> <td>Incidencias activas:</td> <td>${monta_gral.incidentes}</td> </tr>
+                </table>
+            </div>
+          </div>
+
+        </div>
+        `
+      )
       }
     });
 
   })
-  function showTruck(id) {
-    $("#preview").fadeOut('fast', ()=>{
-
-      var elm = datos.find(elm => elm.id == id);
-      $("#preview").html(
-        `
-        <div class="card card-body">
-          <div class="row">
-            <div class="col-6">
-              <p class="mb-1"><b>Modelo:</b> ${elm.modelo}</p>
-              <p class="mb-1"><b>Capacidad:</b> ${elm.capacidad}</p>
-              <p class="mb-1"><b>Serie:</b> ${elm.modelo.toUpperCase()+Math.floor(Math.random() * (50000 - 60000) + 60000)}</p>
-            </div>
-            <div class="col-6">
-              <p class="mb-1"><b>Combustión:</b> ${elm.combustion}</p>
-              <p class="mb-1"><b>Incidencias activas:</b> ${elm.incidentes}</p>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col text-right text-end">
-              <a href="detalles.html?elemento=${id}">Ver..</a>
-            </div>
-          </div>
-        </div>
-        `
-      )
-    });
-    $("#preview").fadeIn('fast');
-  }
 </script>
 </body>
 </html>
