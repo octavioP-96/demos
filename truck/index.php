@@ -255,30 +255,13 @@
         <!-- Posts container -->
         <div class="col-sm-12">
           <div class="card-body bg-light border">
-            <h3>Bienvenido.</h3>
+            <h3>Vehículos.</h3>
 
-            <div class="row">
+            <div class="row"> <!-- main content -->
               
-              <div class="col-sm-6" style="cursor:pointer;" onclick="window.location.href='../truck/'">
-                <div class="info-box bg-light">
-                  <div class="info-box-content">
-                    <h3 class="info-box-text text-center ">Vehículos</h3>
-                    <i class="fa fa-truck text-center display-2 font-weight-bold"></i>
-                    <span class="info-box-text text-center text-muted">Gestionar</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6" style="cursor:pointer;" onclick="window.location.href='../users/'">
-                <div class="info-box bg-light">
-                  <div class="info-box-content">
-                    <h3 class="info-box-text text-center ">Usuarios</h3>
-                    <i class="fa fa-users text-center display-2 font-weight-bold"></i>
-                    <span class="info-box-text text-center text-muted">Gestionar</span>
-                  </div>
-                </div>
-              </div>
+              
 
-            </div>
+            </div> <!-- end main content -->
           </div>
         </div>
         <!-- End Posts container -->
@@ -307,5 +290,18 @@
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script type="module" src="../dist/js/home/home.js"></script> -->
+<script>
+  $(document).ready(()=>{
+    console.log('ready');
+    $.ajax({
+      url:'../api/cars.json',
+      type:'GET',
+      dataType:'json',
+      success: ( data )=>{
+        console.log(data);
+      }
+    })
+  })
+</script>
 </body>
 </html>

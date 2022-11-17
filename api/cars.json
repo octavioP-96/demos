@@ -1,0 +1,245 @@
+[
+    {
+        "id": "1",
+        "modelo": "JAC",
+        "numero_control": "540",
+        "capacidad": "1000",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "6"
+    },
+    {
+        "id": "2",
+        "modelo": "JAC",
+        "numero_control": "200",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "3",
+        "modelo": "Heli",
+        "numero_control": "144",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "4",
+        "modelo": "Hyster",
+        "numero_control": "145",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "5",
+        "modelo": "Hyster",
+        "numero_control": "147",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "6",
+        "modelo": "Hyster",
+        "numero_control": "148",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "7",
+        "modelo": "Toyota",
+        "numero_control": "150",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "8",
+        "modelo": "YALE",
+        "numero_control": "152",
+        "capacidad": "6000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "2"
+    },
+    {
+        "id": "9",
+        "modelo": "JAC",
+        "numero_control": "153",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "11",
+        "modelo": "JAC",
+        "numero_control": "154",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "12",
+        "modelo": "JAC",
+        "numero_control": "155",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "4"
+    },
+    {
+        "id": "13",
+        "modelo": "JAC",
+        "numero_control": "156",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "14",
+        "modelo": "Hyster",
+        "numero_control": "158",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "3"
+    },
+    {
+        "id": "15",
+        "modelo": "JAC",
+        "numero_control": "165",
+        "capacidad": "2.5 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "16",
+        "modelo": "JAC",
+        "numero_control": "167",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "5"
+    },
+    {
+        "id": "17",
+        "modelo": "JAC",
+        "numero_control": "168",
+        "capacidad": "2.5 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "19"
+    },
+    {
+        "id": "18",
+        "modelo": "JAC",
+        "numero_control": "169",
+        "capacidad": "2.5 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "19",
+        "modelo": "JAC",
+        "numero_control": "182",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "1"
+    },
+    {
+        "id": "20",
+        "modelo": "JAC",
+        "numero_control": "185",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "21",
+        "modelo": "JAC",
+        "numero_control": "186",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "2"
+    },
+    {
+        "id": "22",
+        "modelo": "JAC",
+        "numero_control": "197",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "23",
+        "modelo": "JAC",
+        "numero_control": "199",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "25",
+        "modelo": "Yale",
+        "numero_control": "142",
+        "capacidad": "5000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "26",
+        "modelo": "Hyster",
+        "numero_control": "112",
+        "capacidad": "6000lb",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "27",
+        "modelo": "JAC",
+        "numero_control": "179",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "28",
+        "modelo": "JAC",
+        "numero_control": "198",
+        "capacidad": "3 Ton",
+        "combustion": "LP",
+        "estatus": "1",
+        "incidentes": "0"
+    },
+    {
+        "id": "29",
+        "modelo": "HYSTER 148",
+        "numero_control": "76664",
+        "capacidad": "3000",
+        "combustion": "GAS LP",
+        "estatus": "1",
+        "incidentes": "0"
+    }
+]
