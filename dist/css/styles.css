@@ -24,3 +24,24 @@
     max-height:70vh;
     overflow:auto;
 }
+
+.paginate_button.previous{
+    margin-right: 15px;
+}
+.paginate_button.next{
+    margin-left: 15px;
+}
+.paginate_button {
+    margin: 4px 1px;
+    cursor: pointer;
+    background-color: #d7d7d7;
+    padding: 10px 24px;
+    border-radius: 5px;
+}
+.dataTables_paginate{
+    margin-top: 15px;
+}
+.paginate_button.current {
+    cursor: context-menu;
+    background-color: silver;
+}

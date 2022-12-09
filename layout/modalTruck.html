@@ -1,0 +1,54 @@
+<div class="modal fade" id="modalTruck" tabindex="-1" aria-labelledby="modalTruckLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTruckLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formUpdateTruck">
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="id_truck" id="id_truck">
+                        <div class="col-6 mb-3">
+                            <input type="file" name="foto" id="fotoTruck" class="d-none" accept="image/*">
+                            <img onclick="$('#fotoTruck').click()" src="../dist/img/vahiculos/car-icon.jpg" alt="userPicture" class="img-fluid" style="max-width: 150px; cursor:pointer;" id="previewPict">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpModelo">Modelo</label>
+                            <input type="text" name="inpModelo" id="inpModelo" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpNumControl">Numero de control</label>
+                            <input type="number" name="inpNumControl" id="inpNumControl" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpCapacidad">Capacidad</label>
+                            <input type="number" name="inpCapacidad" id="inpCapacidad" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="selectCombustible">Combustible</label>
+                            <select class="form-control" name="selectCombustible" id="selectCombustible">
+                                <option value="Diesel">Diesel</option>
+                                <option value="Gas">Gas</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="selectEstatus">Estatus</label>
+                            <select class="form-control" name="selectEstatus" id="selectEstatus">
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

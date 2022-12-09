@@ -1,0 +1,63 @@
+<div class="modal fade" id="modalUser" tabindex="-1" aria-labelledby="modalUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalUserLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formUpdateUser">
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="id_user" id="id_user">
+                        <div class="col-6 mb-3">
+                            <input type="file" name="foto" id="fotoUser" class="d-none" accept="image/*">
+                            <img onclick="$('#fotoUser').click()" src="../dist/img/user.png" alt="userPicture" class="img-fluid" style="max-width: 150px; cursor:pointer;" id="previewPict">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpIdentificador">Identificador</label>
+                            <input type="number" name="sapP" id="inpIdentificador" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpNombre">Nombre</label>
+                            <input type="text" name="nombreP" id="inpNombre" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpApaterno">Apellido paterno</label>
+                            <input type="text" name="apellidoPP" id="inpApaterno" class="form-control">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpAmaterno">Apellido materno</label>
+                            <input type="text" name="apellidoMP" id="inpAmaterno" class="form-control">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpNombreAcceso">Nombre de acceso</label>
+                            <input type="text" name="inpNombreAcceso" id="inpNombreAcceso" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpAmaterno">Correo</label>
+                            <input type="text" name="inpCorreo" id="inpCorreo" class="form-control">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="inpNombreAcceso">Teléfono</label>
+                            <input type="text" name="inpTelefono" id="inpTelefono" class="form-control" required maxlength="15">
+                        </div>
+                        <div class="col-sm-6 col-md-6 mb-3">
+                            <label for="selectTipoUser">Tipo de usuario</label>
+                            <select name="selectTipoUsuario" id="selectTipoUsuario" class="form-control">
+                                <option value="admin" selected>Admin</option>
+                                <option value="user" selected>Usuario</option>
+                                <option value="proveedor">Proveedor</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

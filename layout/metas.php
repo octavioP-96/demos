@@ -18,8 +18,10 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome https://fontawesome.com/v4/icons/ --> 
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+  <!-- <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css"> -->
+  <script src="https://kit.fontawesome.com/3a53021dca.js" crossorigin="anonymous"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../dist/css/styles.css">
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 </head>
