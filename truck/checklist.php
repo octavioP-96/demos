@@ -1,3 +1,9 @@
+<script>
+    const monta = '<?php echo $_POST['monta']; ?>';
+    const fecha = '<?php echo $_POST['fecha']; ?>';
+    const user = '<?php echo $_POST['usuario']; ?>';
+    const turno = '<?php echo $_POST['turno']; ?>';
+</script>
 <!DOCTYPE html>
 <html>
 <head>

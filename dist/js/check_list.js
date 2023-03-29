@@ -9,13 +9,13 @@ $(document).ready(function(){
 
 
 $('#FinForm').on('click',function(){
-    swal({
+    /* swal({
         icon:'success',
         title:'Registrado con éxito'
     }).then(()=>{
         window.location.replace('./')
     })
-    return;
+    return; */
 	$('input[type="checkbox"]').each(function(){
 		var elm = $(this).prop('name');
 		var selected = $(this).prop('checked');
@@ -30,15 +30,23 @@ $('#FinForm').on('click',function(){
 	if ($('.container input[type="radio"]:checked').length == ($('.container input[type="radio"]').length /2)) {
 		$('#formCheck').submit();
 	}else{
-		alert('Complete todos los items del check');
+		// alert('Complete todos los items del check');
+		swal({
+			icon:'info',
+			title:'Complete todos los items del check'
+		})
 	}
 });
 
 $('#formCheck').on('submit',function(e){
 	e.preventDefault();
 	var dataForm = new FormData(this);
+	dataForm.append('fecha', fecha);
+	dataForm.append('usuario', user);
+	dataForm.append('turno',turno );
+	dataForm.append('monta', monta);
 	$.ajax({
-		url:'DB_control/respons.php',
+		url:'../api/DB_control/respons.php',
 		type:'POST',
 		data: dataForm,
         contentType: false,
@@ -47,8 +55,12 @@ $('#formCheck').on('submit',function(e){
 			$('#overlay-block').show();
 		},
 		success: function(data){
-			alert(data);
-			window.location.href = "montacargas.php?id="+monta;
+			// alert(data);
+			swal({
+				text:data
+			}).then(res => {
+				window.location.replace('./')
+			})
 		}
 	});
 });

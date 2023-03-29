@@ -1,4 +1,9 @@
 <?php
+  session_start();
+  date_default_timezone_set('America/Mexico_City');
+  $fecha = Date('Y-m-d');
+  $retVal = (Date('H') >= 15) ? 'SEGUNDO' : ((Date('H') < 7) ? 'TERCERO':'PRIMERO') ;
+  $claveUsr = $_SESSION['clave'];
     // require ('../api/system/libs/Session.php');
     // $session = new Session();
     // $session->init();

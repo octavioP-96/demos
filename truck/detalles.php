@@ -36,6 +36,9 @@
 
                 <div class="col-sm-12 col-md-6">
                   <div class="card card-body">
+                    <label for="inpFiltroFecha">Buscar Fecha</label>
+                    <input type="week" class="form-control" id="inpFiltroFecha" max="<?php echo date('Y-\WW') ?>" value="<?php echo date('Y-\WW') ?>">
+                    <hr>
                     <table class="table table-striped table-sm" id="tableChecks">
                       <thead>
                         <th>Historico</th>
@@ -397,6 +400,10 @@
   <script>
     $.fn.modal.Constructor.prototype._enforceFocus = function () { };
     let datos = [];
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const monta = urlParams.get('elemento');
+
     $("#enlaceFirmar").on('click', () => {
       var inp = document.createElement('input');
       inp.setAttribute('type', 'password');
@@ -407,50 +414,124 @@
         confirmButtonText: 'Firmar',
       })
     })
+    
     $(document).ready(() => {
-      $("#tableChecks").DataTable();
-      const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const monta = urlParams.get('elemento');
+    const monta = urlParams.get('elemento');
+      $("#tableChecks").DataTable();
       let monta_gral = {};
       $.ajax({
         url: '../api/DB_control/montas_control.php',
         type: 'POST',
-        data:{tipo:'infoMonta', monta:monta},
+        data: { tipo: 'infoMonta', monta: monta },
         dataType: 'json',
         success: (data) => {
           monta_gral = data;
-          $("#preview").html(
-            `
-        <div class="card card-body">
-              
-          <div class="row">
-            <div class="col-6">
-                <img class="img-fluid" src="../dist/img/default-150x150.png">
-            </div>
-            <div class="col-6 " style="overflow:auto">
-                <table>
-                    <tr> <td><b>Modelo:</b></td> <td>${monta_gral.modelo}</td> </tr>
-                    <tr> <td><b>Capacidad:</b></td> <td>${monta_gral.capacidad}</td> </tr>
-                    <tr> <td><b>Serie:</b></td> <td>${monta_gral.modelo.toUpperCase() + Math.floor(Math.random() * (50000 - 60000) + 60000)}</td> </tr>
-                    <tr> <td><b>Combustión:</b></td> <td>${monta_gral.combustion}</td> </tr>
-                    <tr> <td><b>Incidencias activas:</b></td> <td>${monta_gral.incidentes}</td> </tr>
-                </table>
-            </div>
-            <div class="col-12 mt-3">
-              <button class="btn btn-sm btn-primary btn-block" onclick="window.location.href = 'checklist.html'">
-                Registrar Check-list de hoy
-              </button>  
-            </div>
-          </div>
-
-        </div>
-        `
-          )
+          $("#preview").html(`<div class="card card-body">
+                <div class="row">
+                  <div class="col-6">
+                      <img class="img-fluid" src="../dist/img/default-150x150.png">
+                  </div>
+                  <div class="col-6 " style="overflow:auto">
+                      <table>
+                          <tr> <td><b>Modelo:</b></td> <td>${monta_gral.modelo}</td> </tr>
+                          <tr> <td><b>Capacidad:</b></td> <td>${monta_gral.capacidad}</td> </tr>
+                          <tr> <td><b>Serie:</b></td> <td>${monta_gral.modelo.toUpperCase() + Math.floor(Math.random() * (50000 - 60000) + 60000)}</td> </tr>
+                          <tr> <td><b>Combustión:</b></td> <td>${monta_gral.combustion}</td> </tr>
+                          <tr> <td><b>Incidencias activas:</b></td> <td>${monta_gral.incidentes}</td> </tr>
+                      </table>
+                  </div>
+                  <div class="col-12 mt-3">
+                  <form action="checklist.php" method="POST" id="MainForm">
+                    <input type="date" name="fecha"   id="fechaFM" value="<?php  echo($fecha); ?>" hidden>
+                    <input type="text" name="usuario" id="usuarioFM" value="<?php  echo($claveUsr); ?>" hidden>
+                    <input type="text" name="turno"   id="turnoFM" value="<?php  echo($retVal); ?>" hidden>
+                    <input type="text" name="monta"   id="montaFM" value="${monta}" hidden>
+                  </form>
+                    <button class="btn btn-sm btn-primary btn-block" onClick="IniciarChecklist()">
+                      Registrar Check-list de hoy
+                    </button>  
+                  </div>
+                </div>
+              </div>`)
         }
       });
 
+      let inpWeek = $("#inpFiltroFecha").val().split('-');
+      cargarDatos(monta, inpWeek[1].replace('W', ''), inpWeek[0]);
     })
+
+    $("#inpFiltroFecha").on('change', () => {
+      let inpWeek = $("#inpFiltroFecha").val().split('-');
+      cargarDatos(monta, inpWeek[1].replace('W', ''), inpWeek[0]);
+    })
+
+    function cargarDatos(id, sem, year) {
+      $.ajax({
+        url: '../api/DB_control/montas_control.php',
+        type: "POST",
+        data: { tipo: "consultaMonta", monta: id, seman: sem, anio: year },
+        success: function (data) {
+          var registros = JSON.parse(data);
+
+          var html = "";
+          if (registros !== null) {
+            $("#tableChecks").DataTable().clear();
+            for (var i = 0; i < (registros.length) - 1; i++) {
+              var dispEst = registros[i].estatus;
+              (dispEst === "pendiente" || dispEst === "ok") ? dispEst = dispEst : dispEst = "Enterado";
+              $("#tableChecks").DataTable().row.add([`<div class="d-flex justify-content-between">
+                          <span class="text-mutted"><b>Fecha:</b> ${registros[i].fecha}/span>
+                          <span class="text-mutted"><b>Revisado:</b> <i
+                              class="fa-regular ${dispEst == 'ok' ? 'fa-square-check text-success' : 'fa-square'} ml-2"></i></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                          <span class="text-mutted"><b>Turno:</b> ${registros[i].turno}</span>
+                          <span class="text-mutted"><b>Operario:</b> ${registros[i].clave_usuario}</span>
+                        </div>
+                        <div class="d-flex justify-content-end p-2">
+                          <div class="bg-light border">
+                            <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-muted"><i
+                                class="fas fa-clipboard-list mx-2"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#Modal" class="text-muted"><i
+                                class="fas fa-exclamation-circle mx-2"></i></a>
+                          </div>
+                        </div>`]).draw();
+              
+            }
+            $("#tableChecks").DataTable().draw();
+            // var detalles_semana = cunsultar_detalles_semana(sem, id);
+
+            $('#linkReporte').html(`<a onclick="getReporte('${sem}','${year}')">Generar reporte de semana ${sem}</a>`);
+            $('#LabelSemana').html(sem);
+            $('#listado_checks').html(html);
+          } else {
+            $('#linkReporte').html('<i><b>No hay reporte por generar<b></i>');
+            $('#LabelSemana').html(sem);
+            $('#listado_checks').html("<li><p>No hay registros para semana " + sem + "</p></li>");
+            $('#mensaje').html('<b> </b>');
+          }
+        },
+        error: function (error) {
+          console.log(error.getResponseHeader);
+        }
+      });
+    }
+    function IniciarChecklist() {
+      Swal.fire({
+        title: '¿Está seguro de iniciar el checklist?',
+        text: "Una vez iniciado no podrá ser modificado.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Iniciar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $("#MainForm").submit();
+        }
+      })
+    }
   </script>
 </body>
 
